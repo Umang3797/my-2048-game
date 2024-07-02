@@ -25,6 +25,82 @@ function App() {
     }
   }
 
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [board]);
+  
+  function handleKeyDown(event) {
+    let newBoard;
+    switch (event.key) {
+      case 'ArrowUp':
+        newBoard = moveUp(board);
+        break;
+      case 'ArrowDown':
+        newBoard = moveDown(board);
+        break;
+      case 'ArrowLeft':
+        newBoard = moveLeft(board);
+        break;
+      case 'ArrowRight':
+        newBoard = moveRight(board);
+        break;
+      default:
+        return;
+    }
+    if (newBoard) {
+      addNumber(newBoard);
+      setBoard([...newBoard]);
+    }
+  }
+  
+  function moveLeft(board) {
+    const newBoard = board.map(row => slideRow(row));
+    return newBoard;
+  }
+  
+  function moveRight(board) {
+    const newBoard = board.map(row => slideRow(row.reverse()).reverse());
+    return newBoard;
+  }
+  
+  function moveUp(board) {
+    const transposed = transpose(board);
+    const newBoard = transposed.map(row => slideRow(row));
+    return transpose(newBoard);
+  }
+  
+  function moveDown(board) {
+    const transposed = transpose(board);
+    const newBoard = transposed.map(row => slideRow(row.reverse()).reverse());
+    return transpose(newBoard);
+  }
+  
+  function slideRow(row) {
+    let arr = row.filter(val => val);
+    let missing = SIZE - arr.length;
+    let zeros = Array(missing).fill(0);
+    arr = arr.concat(zeros);
+    for (let i = 0; i < SIZE - 1; i++) {
+      if (arr[i] === arr[i + 1] && arr[i] !== 0) {
+        arr[i] *= 2;
+        arr[i + 1] = 0;
+      }
+    }
+    arr = arr.filter(val => val);
+    missing = SIZE - arr.length;
+    zeros = Array(missing).fill(0);
+    arr = arr.concat(zeros);
+    return arr;
+  }
+  
+  function transpose(board) {
+    return board[0].map((_, colIndex) => board.map(row => row[colIndex]));
+  }
+  
+
   return (
     <div className="App">
       <h1>2048 Game</h1>
