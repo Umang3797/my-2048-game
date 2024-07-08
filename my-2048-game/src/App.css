@@ -45,6 +45,7 @@
   background-color: #bbada0;
   padding: 10px;
   border-radius: 5px;
+  position: relative;
 }
 
 .row {
@@ -62,6 +63,7 @@
   font-size: 24px;
   font-weight: bold;
   color: #776e65;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .cell.value-2 {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 
 const SIZE = 4;
@@ -146,15 +147,23 @@ function App() {
       </div>
       <button onClick={restartGame} className="restart-button">Restart</button>
       <div className="board">
-        {board.map((row, rowIndex) => (
-          <div key={rowIndex} className="row">
-            {row.map((cell, cellIndex) => (
-              <div key={cellIndex} className={`cell value-${cell}`}>
-                {cell !== 0 ? cell : ''}
-              </div>
-            ))}
-          </div>
-        ))}
+        <TransitionGroup component={null}>
+          {board.map((row, rowIndex) => (
+            <div key={rowIndex} className="row">
+              {row.map((cell, cellIndex) => (
+                <CSSTransition
+                  key={`${rowIndex}-${cellIndex}`}
+                  timeout={300}
+                  classNames="cell"
+                >
+                  <div className={`cell value-${cell}`}>
+                    {cell !== 0 ? cell : ''}
+                  </div>
+                </CSSTransition>
+              ))}
+            </div>
+          ))}
+        </TransitionGroup>
       </div>
     </div>
   );
