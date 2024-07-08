@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# 2048 Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the 2048 Game! This is a classic sliding block puzzle game built using React. The objective is to slide the numbered tiles on a grid to combine them and create a tile with the number 2048.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Game Controls](#game-controls)
+- [How to Play](#how-to-play)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The 2048 game is a fun and addictive puzzle game where you combine tiles to reach the 2048 tile. This project is built using React and includes enhanced graphics, animations, a restart functionality, and an undo feature for the last 5 moves.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Classic 2048 gameplay
+- Enhanced graphics and animations
+- Score and best score tracking
+- Undo functionality for the last 5 moves
+- Restart button to start a new game
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+To run this game locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/Umang3797/my-2048-game.git
+    cd 2048-game
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install the dependencies**:
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the development server**:
+    ```bash
+    npm start
+    ```
 
-### `npm run eject`
+4. **Open your browser and navigate to**:
+    ```
+    http://localhost:3000
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once the development server is running, you can play the game in your browser. Use the arrow keys to slide the tiles. Try to combine them to create a tile with the number 2048.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Game Controls
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Arrow Keys**: Move tiles up, down, left, or right.
+- **Ctrl+Z / Cmd+Z**: Undo the last move (up to 5 moves).
+- **Restart Button**: Start a new game.
 
-## Learn More
+### How to Play
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Use the arrow keys to move the tiles.
+2. Tiles with the same number will merge into one when they touch.
+3. Each move, a new tile will appear in a random empty spot on the board.
+4. The game ends when there are no empty spots and no moves left.
+5. The objective is to create a tile with the number 2048.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+Contributions are welcome! If you have suggestions or improvements, feel free to create an issue or submit a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Fork the repository**:
+    ```bash
+    git fork https://github.com/Umang3797/my-2048-game.git
+    ```
 
-### Analyzing the Bundle Size
+2. **Create a new branch**:
+    ```bash
+    git checkout -b feature-branch
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. **Make your changes and commit**:
+    ```bash
+    git commit -m "Add new feature"
+    ```
 
-### Making a Progressive Web App
+4. **Push to the branch**:
+    ```bash
+    git push origin feature-branch
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+5. **Create a pull request** on GitHub.
 
-### Advanced Configuration
+## Launch the Game
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+You can play the 2048 game online [here](https://github.com/Umang3797/my-2048-game).
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
