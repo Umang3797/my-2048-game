@@ -131,6 +131,12 @@ function App() {
     return board[0].map((_, colIndex) => board.map(row => row[colIndex]));
   }
 
+  function restartGame() {
+    const newBoard = initializeBoard();
+    setBoard(newBoard);
+    setScore(0);
+  }
+
   return (
     <div className="App">
       <h1>2048 Game</h1>
@@ -138,6 +144,7 @@ function App() {
         <div className="score">Score: {score}</div>
         <div className="best-score">Best: {bestScore}</div>
       </div>
+      <button onClick={restartGame} className="restart-button">Restart</button>
       <div className="board">
         {board.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
