@@ -1,38 +1,90 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  background-color: #faf8ef;
 }
 
-.App-link {
-  color: #61dafb;
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-gap: 10px;
+  background-color: #bbada0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.row {
+  display: contents;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background-color: #cdc1b4;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #776e65;
+}
+
+.cell.value-2 {
+  background-color: #eee4da;
+  color: #776e65;
+}
+
+.cell.value-4 {
+  background-color: #ede0c8;
+  color: #776e65;
+}
+
+.cell.value-8 {
+  background-color: #f2b179;
+  color: #f9f6f2;
+}
+
+.cell.value-16 {
+  background-color: #f59563;
+  color: #f9f6f2;
+}
+
+.cell.value-32 {
+  background-color: #f67c5f;
+  color: #f9f6f2;
+}
+
+.cell.value-64 {
+  background-color: #f65e3b;
+  color: #f9f6f2;
+}
+
+.cell.value-128 {
+  background-color: #edcf72;
+  color: #f9f6f2;
+}
+
+.cell.value-256 {
+  background-color: #edcc61;
+  color: #f9f6f2;
+}
+
+.cell.value-512 {
+  background-color: #edc850;
+  color: #f9f6f2;
+}
+
+.cell.value-1024 {
+  background-color: #edc53f;
+  color: #f9f6f2;
+}
+
+.cell.value-2048 {
+  background-color: #edc22e;
+  color: #f9f6f2;
 }

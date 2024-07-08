@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const SIZE = 4;
@@ -25,59 +25,58 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      let newBoard;
+      switch (event.key) {
+        case 'ArrowUp':
+          newBoard = moveUp(board);
+          break;
+        case 'ArrowDown':
+          newBoard = moveDown(board);
+          break;
+        case 'ArrowLeft':
+          newBoard = moveLeft(board);
+          break;
+        case 'ArrowRight':
+          newBoard = moveRight(board);
+          break;
+        default:
+          return;
+      }
+      if (newBoard) {
+        addNumber(newBoard);
+        setBoard([...newBoard]);
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [board]);
-  
-  function handleKeyDown(event) {
-    let newBoard;
-    switch (event.key) {
-      case 'ArrowUp':
-        newBoard = moveUp(board);
-        break;
-      case 'ArrowDown':
-        newBoard = moveDown(board);
-        break;
-      case 'ArrowLeft':
-        newBoard = moveLeft(board);
-        break;
-      case 'ArrowRight':
-        newBoard = moveRight(board);
-        break;
-      default:
-        return;
-    }
-    if (newBoard) {
-      addNumber(newBoard);
-      setBoard([...newBoard]);
-    }
-  }
-  
+
   function moveLeft(board) {
     const newBoard = board.map(row => slideRow(row));
     return newBoard;
   }
-  
+
   function moveRight(board) {
     const newBoard = board.map(row => slideRow(row.reverse()).reverse());
     return newBoard;
   }
-  
+
   function moveUp(board) {
     const transposed = transpose(board);
     const newBoard = transposed.map(row => slideRow(row));
     return transpose(newBoard);
   }
-  
+
   function moveDown(board) {
     const transposed = transpose(board);
     const newBoard = transposed.map(row => slideRow(row.reverse()).reverse());
     return transpose(newBoard);
   }
-  
+
   function slideRow(row) {
     let arr = row.filter(val => val);
     let missing = SIZE - arr.length;
@@ -95,11 +94,10 @@ function App() {
     arr = arr.concat(zeros);
     return arr;
   }
-  
+
   function transpose(board) {
     return board[0].map((_, colIndex) => board.map(row => row[colIndex]));
   }
-  
 
   return (
     <div className="App">
@@ -108,7 +106,7 @@ function App() {
         {board.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((cell, cellIndex) => (
-              <div key={cellIndex} className="cell">
+              <div key={cellIndex} className={`cell value-${cell}`}>
                 {cell !== 0 ? cell : ''}
               </div>
             ))}
