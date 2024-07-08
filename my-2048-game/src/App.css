@@ -8,6 +8,21 @@
   background-color: #faf8ef;
 }
 
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.score, .best-score {
+  background-color: #bbada0;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(4, 80px);

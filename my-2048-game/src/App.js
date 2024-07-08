@@ -5,6 +5,10 @@ const SIZE = 4;
 
 function App() {
   const [board, setBoard] = useState(initializeBoard());
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(() => {
+    return parseInt(localStorage.getItem('bestScore'), 10) || 0;
+  });
 
   function initializeBoard() {
     const newBoard = Array(SIZE).fill().map(() => Array(SIZE).fill(0));
@@ -28,53 +32,79 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       let newBoard;
+      let newScore = score;
       switch (event.key) {
         case 'ArrowUp':
-          newBoard = moveUp(board);
+          newBoard = moveUp(board, newScore);
           break;
         case 'ArrowDown':
-          newBoard = moveDown(board);
+          newBoard = moveDown(board, newScore);
           break;
         case 'ArrowLeft':
-          newBoard = moveLeft(board);
+          newBoard = moveLeft(board, newScore);
           break;
         case 'ArrowRight':
-          newBoard = moveRight(board);
+          newBoard = moveRight(board, newScore);
           break;
         default:
           return;
       }
       if (newBoard) {
-        addNumber(newBoard);
-        setBoard([...newBoard]);
+        addNumber(newBoard.board);
+        setBoard([...newBoard.board]);
+        setScore(newBoard.score);
+        if (newBoard.score > bestScore) {
+          setBestScore(newBoard.score);
+          localStorage.setItem('bestScore', newBoard.score);
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [board]);
+  }, [board, score, bestScore]);
 
-  function moveLeft(board) {
-    const newBoard = board.map(row => slideRow(row));
-    return newBoard;
+  function moveLeft(board, currentScore) {
+    let newScore = currentScore;
+    const newBoard = board.map(row => {
+      const result = slideRow(row);
+      newScore += result.score;
+      return result.row;
+    });
+    return { board: newBoard, score: newScore };
   }
 
-  function moveRight(board) {
-    const newBoard = board.map(row => slideRow(row.reverse()).reverse());
-    return newBoard;
+  function moveRight(board, currentScore) {
+    let newScore = currentScore;
+    const newBoard = board.map(row => {
+      const result = slideRow(row.reverse());
+      newScore += result.score;
+      return result.row.reverse();
+    });
+    return { board: newBoard, score: newScore };
   }
 
-  function moveUp(board) {
+  function moveUp(board, currentScore) {
+    let newScore = currentScore;
     const transposed = transpose(board);
-    const newBoard = transposed.map(row => slideRow(row));
-    return transpose(newBoard);
+    const newBoard = transposed.map(row => {
+      const result = slideRow(row);
+      newScore += result.score;
+      return result.row;
+    });
+    return { board: transpose(newBoard), score: newScore };
   }
 
-  function moveDown(board) {
+  function moveDown(board, currentScore) {
+    let newScore = currentScore;
     const transposed = transpose(board);
-    const newBoard = transposed.map(row => slideRow(row.reverse()).reverse());
-    return transpose(newBoard);
+    const newBoard = transposed.map(row => {
+      const result = slideRow(row.reverse());
+      newScore += result.score;
+      return result.row.reverse();
+    });
+    return { board: transpose(newBoard), score: newScore };
   }
 
   function slideRow(row) {
@@ -82,9 +112,11 @@ function App() {
     let missing = SIZE - arr.length;
     let zeros = Array(missing).fill(0);
     arr = arr.concat(zeros);
+    let newScore = 0;
     for (let i = 0; i < SIZE - 1; i++) {
       if (arr[i] === arr[i + 1] && arr[i] !== 0) {
         arr[i] *= 2;
+        newScore += arr[i];
         arr[i + 1] = 0;
       }
     }
@@ -92,7 +124,7 @@ function App() {
     missing = SIZE - arr.length;
     zeros = Array(missing).fill(0);
     arr = arr.concat(zeros);
-    return arr;
+    return { row: arr, score: newScore };
   }
 
   function transpose(board) {
@@ -102,6 +134,10 @@ function App() {
   return (
     <div className="App">
       <h1>2048 Game</h1>
+      <div className="scoreboard">
+        <div className="score">Score: {score}</div>
+        <div className="best-score">Best: {bestScore}</div>
+      </div>
       <div className="board">
         {board.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
